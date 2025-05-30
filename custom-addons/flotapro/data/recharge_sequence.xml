@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="seq_flotapro_recharge" model="ir.sequence">
+    <field name="name">Folio de Recarga</field>
+    <field name="code">flotapro.recharge</field>
+    <field name="prefix">RCG-%(year)s-</field>
+    <field name="padding">4</field>
+    <field name="number_next">1</field>
+    <field name="number_increment">1</field>
+  </record>
+</odoo>

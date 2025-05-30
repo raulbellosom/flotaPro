@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_card_admin,access.vehicle.card.admin,model_flotapro_vehicle_card,base.group_system,1,1,1,1
+access_recharge_admin,access.recharge.admin,model_flotapro_recharge,base.group_system,1,1,1,1
+access_trip_admin,access.trip.admin,model_flotapro_trip,base.group_system,1,1,1,1
+access_employee_admin,access.employee.admin,model_hr_employee,base.group_system,1,1,1,1
+access_recharge_driver,access.recharge.driver,model_flotapro_recharge,flotapro.group_portal_driver,1,0,1,0
+access_trip_driver,access.trip.driver,model_flotapro_trip,flotapro.group_portal_driver,1,0,1,0
+access_employee_driver,access.employee.driver,model_hr_employee,flotapro.group_portal_driver,1,0,0,0

@@ -1,0 +1,51 @@
+services:
+  odoo:
+    container_name: flotaPro
+    image: odoo:18.0
+    ports:
+      - "8069:8069"
+      - "8072:8072"
+    volumes:
+      - odoo-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./custom-addons:/mnt/extra-addons
+      - ./odoo-source/addons:/mnt/odoo-addons
+    environment:
+      - ADDONS_PATH=/mnt/extra-addons,/mnt/odoo-addons
+    entrypoint:
+      [
+        "odoo",
+        "-c",
+        "/etc/odoo/odoo.conf",
+        "-d",
+        "odoo",
+        "-u",
+        "estate",
+        "--dev",
+        "xml",
+      ]
+
+  db:
+    container_name: postgresdbFP
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo_db
+      - POSTGRES_USER=odoo_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin4FP
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+volumes:
+  odoo-data:
+  db-data:

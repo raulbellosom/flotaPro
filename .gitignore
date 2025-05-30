@@ -1,0 +1,29 @@
+# Ignorar archivos de entorno
+.env
+
+__pycache__/
+*.pyc
+
+# Ignorar archivos de configuracion de IDE
+.vscode/
+.idea/
+
+# Ingorar archivos de logs
+*.log
+
+# Ignorar archivos de compilacion
+dist/
+*.o
+*.so
+*.a
+*.out
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de dependencias
+node_modules/
+
+# ignorar odoo-source folder
+odoo-source/

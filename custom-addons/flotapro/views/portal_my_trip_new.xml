@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_my_trip_new" name="Nuevo Viaje">
+        <t t-call="portal.portal_layout">
+            <t t-set="title">Nuevo Viaje</t>
+
+            <div class="container my-5">
+                <div class="mx-auto" style="max-width: 550px;">
+                    <h4 class="mb-4">
+                        <i class="fa fa-arrow-left me-2"></i>Nuevo Viaje</h4>
+
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="card shadow-sm p-4">
+
+                            <h5 class="mb-3">
+                                <i class="fa fa-info-circle me-2 text-primary"></i>Información del Viaje</h5>
+
+                            <div class="mb-3">
+                                <label class="form-label">Número de Pasajeros</label>
+                                <select name="passenger_count" class="form-select">
+                                    <option value="">Selecciona cantidad</option>
+                                    <t t-foreach="range(1, 10)" t-as="i">
+                                        <option t-att-value="i">
+                                            <t t-esc="i"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Método de Pago</label>
+                                <select name="payment_method" class="form-select">
+                                    <option value="">Selecciona método</option>
+                                    <option value="efectivo">Efectivo</option>
+                                    <option value="tarjeta">Tarjeta</option>
+                                    <option value="transferencia">Transferencia</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Costo</label>
+                                <input type="number" step="0.01" name="cost" class="form-control"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Divisa</label>
+                                <select name="currency" class="form-select">
+                                    <option value="MXN">MXN</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Origen</label>
+                                <input type="text" name="origin" class="form-control"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Destino</label>
+                                <input type="text" name="destination" class="form-control"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Nombre del Pasajero Principal</label>
+                                <input type="text" name="main_passenger" class="form-control"/>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Observaciones</label>
+                                <textarea name="comment" class="form-control" rows="3"></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">Multimedia (Opcional)</label>
+                                <input type="file" name="media" class="form-control" accept="image/*,video/*,application/pdf,application/xml,.xml,application/vnd.oasis.opendocument.text,.pdf,.facture"/>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Crear Viaje</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

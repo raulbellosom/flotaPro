@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="portal_my_recargas" name="Mis Recargas">
+    <t t-call="portal.layout">
+      <div class="container my-5">
+        <h2>Mis Recargas</h2>
+        <t t-if="recargas">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Fecha</th>
+                <th>Cantidad</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr t-foreach="recargas" t-as="recarga">
+                <td>
+                  <t t-esc="recarga.name"/>
+                </td>
+                <td>
+                  <t t-esc="recarga.fecha"/>
+                </td>
+                <td>
+                  <t t-esc="recarga.cantidad"/>
+                </td>
+                <td>
+                  <t t-esc="recarga.estado"/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </t>
+        <t t-else="">
+          <p>No tienes recargas registradas aún.</p>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>

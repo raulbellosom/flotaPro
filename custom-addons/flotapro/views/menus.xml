@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <menuitem id="menu_flotapro_root" name="FlotaPro" sequence="10" groups="base.group_system"/>
+
+  <menuitem id="menu_trip" name="Viajes" parent="menu_flotapro_root" action="action_trip" sequence="1" groups="base.group_system"/>
+
+  <menuitem id="menu_recharge" name="Recargas" parent="menu_flotapro_root" action="action_recharge" sequence="2" groups="base.group_system"/>
+
+  <menuitem id="menu_vehicle_card" name="Tarjetas virtuales" parent="menu_flotapro_root" action="action_vehicle_card" sequence="3" groups="base.group_system"/>
+
+  <menuitem id="menu_employee" name="Choferes" parent="menu_flotapro_root" action="action_employee" sequence="4" groups="base.group_system"/>
+</odoo>

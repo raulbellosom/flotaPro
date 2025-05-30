@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Lista -->
+  <record id="view_recharge_list" model="ir.ui.view">
+    <field name="name">flotapro.recharge.list</field>
+    <field name="model">flotapro.recharge</field>
+    <field name="arch" type="xml">
+      <list string="Recargas">
+        <field name="fecha"/>
+        <field name="name"/>
+        <field name="tarjeta_id"/>
+        <field name="estado"/>
+        <field name="cantidad"/>
+        <field name="ticket" widget="binary"/>
+        <field name="factura" widget="binary"/>
+        <field name="observaciones"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Formulario -->
+  <record id="view_recharge_form" model="ir.ui.view">
+    <field name="name">flotapro.recharge.form</field>
+    <field name="model">flotapro.recharge</field>
+    <field name="arch" type="xml">
+      <form string="Recarga">
+        <sheet>
+          <group>
+            <field name="tarjeta_id"/>
+            <field name="cantidad"/>
+            <field name="fecha"/>
+            <field name="ticket" filename="ticket_filename"/>
+            <field name="factura" filename="factura_filename"/>
+            <field name="estado" readonly="1"/>
+            <field name="observaciones"/>
+          </group>
+
+          <notebook>
+            <page string="Validación">
+              <div style="background-color: #fff3cd; border: 1px solid #ffeeba; padding: 15px; border-radius: 4px; margin-bottom: 16px;">
+                <p style="color: #856404;">
+                  <strong>⚠ Atención:</strong>
+                  <br/>
+                  Una vez que una recarga sea <em>validada</em> o <em>rechazada</em>,                  <strong>no se puede deshacer</strong>.                  <br/>
+                  Si necesitas realizar cambios, deberás crear una nueva recarga o <strong>contactar al soporte</strong>.
+                </p>
+              </div>
+
+              <!-- Botones con iconos y espaciado -->
+              <div style="text-align: center; margin-top: 16px; display: flex; justify-content: start; gap: 14px;">
+                <button name="action_rechazar" type="object" string="Rechazar" class="btn btn-outline-danger" />
+                <button name="action_validar" type="object" string="Validar" class="btn btn-success" />
+              </div>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Acción -->
+  <record id="action_recharge" model="ir.actions.act_window">
+    <field name="name">Recargas</field>
+    <field name="res_model">flotapro.recharge</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>

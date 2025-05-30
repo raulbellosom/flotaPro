@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="portal_my_trips" name="My Trips">
+    <t t-call="portal.portal_layout">
+      <t t-set="title">Mis Viajes</t>
+
+      <div class="container mt-5 mb-5">
+
+        <!-- Encabezado con ícono y título -->
+        <div class="text-center mb-4">
+          <div class="mb-3">
+            <i class="fa fa-car fa-3x text-primary"></i>
+          </div>
+          <h2>Mi Taxi</h2>
+          <p class="text-muted">Gestiona tus viajes fácilmente</p>
+        </div>
+
+        <!-- Botón de nuevo viaje -->
+        <div class="text-center mb-5">
+          <div class="alert alert-success">
+            <h5 class="mb-3">¡Bienvenido!</h5>
+            <p class="mb-3">Toca el botón para crear un nuevo viaje</p>
+            <a href="/my/trips/new" class="btn btn-success btn-lg">
+              <i class="fa fa-plus-circle me-2"></i>Nuevo Viaje
+            </a>
+          </div>
+        </div>
+
+        <!-- Historial de viajes -->
+        <div class="mb-4">
+          <h4 class="mb-3">
+            <i class="fa fa-clock me-2"></i>Historial de Viajes</h4>
+
+          <t t-if="trips">
+            <t t-foreach="trips" t-as="trip">
+              <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title mb-0">
+                      <i class="fa fa-user me-2"></i>
+                      <t t-esc="trip.partner_id.name or 'Pasajero desconocido'" />
+                    </h5>
+                    <small class="text-muted">
+                      <t t-esc="trip.create_date.strftime('%d/%m/%Y')" />
+                    </small>
+                  </div>
+
+                  <ul class="list-unstyled mb-2">
+                    <li>
+                      <i class="fa fa-users me-2"></i>
+                      <t t-esc="trip.passenger_count or 1" />
+ pasajero(s)
+                    </li>
+                    <li>
+                      <i class="fa fa-credit-card me-2"></i>
+                      <t t-esc="trip.payment_method or '---'" />
+                    </li>
+                    <li>
+                      <i class="fa fa-comment me-2"></i>
+                      <t t-esc="trip.comment or 'Sin comentarios'" />
+                    </li>
+                  </ul>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge 
+                      text-uppercase 
+                      px-3 py-1 
+                      fw-bold 
+                      badge-{{ 'success' if trip.estado == 'finalizado' else 'danger' if trip.estado == 'cancelado' else 'secondary' }}">
+                      <t t-esc="dict(trip.fields_get()['estado']['selection'])[trip.estado]" />
+                    </span>
+
+                    <a t-attf-href="/my/trips/{{ trip.id }}" class="btn btn-sm btn-outline-primary">
+                      Ver detalles
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </t>
+
+          <t t-if="not trips">
+            <div class="alert alert-info text-center">
+              Aún no has registrado ningún viaje.
+            </div>
+          </t>
+        </div>
+      </div>
+    </t>
+  </template>
+</odoo>

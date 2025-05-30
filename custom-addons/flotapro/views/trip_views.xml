@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Formulario -->
+  <record id="view_trip_form" model="ir.ui.view">
+    <field name="name">flotapro.trip.form</field>
+    <field name="model">flotapro.trip</field>
+    <field name="arch" type="xml">
+      <form string="Viaje de Transporte">
+        <header>
+          <button name="action_iniciar" type="object" string="Iniciar" class="btn-primary"/>
+          <button name="action_finalizar" type="object" string="Finalizar"/>
+          <button name="action_cancelar" type="object" string="Cancelar"/>
+          <field name="estado" widget="statusbar" statusbar_visible="draft,en_curso,finalizado,cancelado"/>
+        </header>
+        <sheet>
+          <group string="Información del viaje" colspan="4">
+            <field name="name" readonly="1"/>
+            <field name="chofer_id"/>
+            <field name="tarjeta_id"/>
+            <field name="vehicle_id" readonly="1"/>
+            <field name="recargas_usadas" readonly="1"/>
+          </group>
+          <group string="Historico del viaje" colspan="2">
+            <field name="fecha_inicio"/>
+            <field name="fecha_fin"/>
+          </group>
+          <group string="Ruta del viaje" colspan="2">
+            <field name="origen"/>
+            <field name="destino"/>
+          </group>
+          <group string="Pasajeros" colspan="2">
+            <field name="pasajeros"/>
+            <field name="pasajero_principal"/>
+          </group>
+          <group>
+            <field name="comentarios" colspan="4"/>
+          </group>
+          <group string="Archivos adjuntos">
+            <field name="adjunto_ids" widget="many2many_binary"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Lista -->
+  <record id="view_trip_list" model="ir.ui.view">
+    <field name="name">flotapro.trip.list</field>
+    <field name="model">flotapro.trip</field>
+    <field name="arch" type="xml">
+      <list string="Viajes">
+        <field name="name"/>
+        <field name="fecha_inicio"/>
+        <field name="chofer_id"/>
+        <field name="vehicle_id"/>
+        <field name="destino"/>
+        <field name="estado"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Acción -->
+  <record id="action_trip" model="ir.actions.act_window">
+    <field name="name">Viajes</field>
+    <field name="res_model">flotapro.trip</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>

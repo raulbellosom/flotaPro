@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Lista -->
+    <record id="view_vehicle_card_list" model="ir.ui.view">
+        <field name="name">flotapro.vehicle.card.list</field>
+        <field name="model">flotapro.vehicle.card</field>
+        <field name="arch" type="xml">
+            <list string="Tarjetas Virtuales">
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="vehicle_type"/>
+                <field name="available_recharges"/>
+                <!-- <field name="active"/> -->
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulario -->
+    <record id="view_vehicle_card_form" model="ir.ui.view">
+        <field name="name">flotapro.vehicle.card.form</field>
+        <field name="model">flotapro.vehicle.card</field>
+        <field name="arch" type="xml">
+            <form string="Tarjeta Virtual">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="vehicle_id"/>
+                        <field name="vehicle_type"/>
+                        <field name="total_recharges"/>
+                        <field name="available_recharges"/>
+                        <!-- <field name="active"/> -->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_vehicle_card" model="ir.actions.act_window">
+        <field name="name">Tarjetas Virtuales</field>
+        <field name="res_model">flotapro.vehicle.card</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
