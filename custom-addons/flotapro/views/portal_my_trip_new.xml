@@ -9,6 +9,12 @@
                     <h4 class="mb-4">
                         <i class="fa fa-arrow-left me-2"></i>Nuevo Viaje</h4>
 
+                    <t t-if="error">
+                        <div class="alert alert-danger" role="alert">
+                            <t t-esc="error"/>
+                        </div>
+                    </t>
+
                     <form method="post" enctype="multipart/form-data">
                         <div class="card shadow-sm p-4">
 
@@ -74,6 +80,18 @@
                                 <label class="form-label">Multimedia (Opcional)</label>
                                 <input type="file" name="media" class="form-control" accept="image/*,video/*,application/pdf,application/xml,.xml,application/vnd.oasis.opendocument.text,.pdf,.facture"/>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Tarjeta Virtual</label>
+                                <select name="card_id" class="form-select" required="1">
+                                    <t t-foreach="cards" t-as="card">
+                                        <option t-att-value="card.id">
+                                            <t t-esc="card.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+
 
                             <button type="submit" class="btn btn-primary w-100">Crear Viaje</button>
                         </div>
