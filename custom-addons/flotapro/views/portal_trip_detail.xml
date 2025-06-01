@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_trip_detail" name="Detalle del Viaje">
+        <t t-call="portal.portal_layout">
+            <t t-set="title">Control de Viaje</t>
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="w-100" style="max-width: 420px;">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold" style="color:#2176c1;">Control de Viaje</h2>
+                    </div>
+                    <div class="bg-white rounded shadow-sm p-4 mb-4 border">
+                        <h5 class="mb-3 fw-bold" style="color:#2176c1;">Información del Viaje</h5>
+                        <div class="row mb-2">
+                            <div class="col-6 text-muted">Pasajeros:</div>
+                            <div class="col-6 text-end fw-bold">
+                                <t t-esc="trip.pasajeros or 1"/>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6 text-muted">Pago:</div>
+                            <div class="col-6 text-end">
+                                <t t-esc="(trip.forma_pago and trip.forma_pago.capitalize()) or '---'"/>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6 text-muted">Pasajero:</div>
+                            <div class="col-6 text-end">
+                                <t t-esc="trip.pasajero_principal or '---'"/>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-6 text-muted">Observaciones:</div>
+                            <div class="col-6 text-end">
+                                <t t-esc="trip.comentarios or '---'"/>
+                            </div>
+                        </div>
+                        <t t-if="trip.fecha_inicio">
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Hora de inicio:</div>
+                                <div class="col-6 text-end">
+                                    <t t-esc="trip.fecha_inicio.strftime('%d/%m/%Y %H:%M')"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="trip.fecha_fin">
+                            <div class="row mb-2">
+                                <div class="col-6 text-muted">Hora de finalización:</div>
+                                <div class="col-6 text-end">
+                                    <t t-esc="trip.fecha_fin.strftime('%d/%m/%Y %H:%M')"/>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+
+                    <!-- Estado del viaje -->
+                    <div class="mb-3">
+                        <t t-if="trip.estado == 'en_curso'">
+                            <div class="btn btn-light btn-lg w-100 mb-3" style="color:#2176c1; border: 2px solid #2176c1;">
+                                <i class="fa fa-clock me-2"></i> Viaje en Progreso
+                            </div>
+                        </t>
+                        <t t-if="trip.estado == 'draft'">
+                            <div class="btn btn-light btn-lg w-100 mb-3" style="color:#2176c1; border: 2px solid #2176c1;">
+                                <i class="fa fa-play me-2"></i> Viaje Pendiente
+                            </div>
+                        </t>
+                        <t t-if="trip.estado == 'finalizado'">
+                            <div class="btn btn-success btn-lg w-100 mb-3 cursor-default" style="border: 2px solid #28a745;">
+                                <i class="fa fa-check me-2"></i> Viaje Finalizado
+                            </div>
+                        </t>
+                        <t t-if="trip.estado == 'cancelado'">
+                            <div class="btn btn-light btn-lg w-100 mb-3" style="color:#dc3545; border: 2px solid #dc3545;">
+                                <i class="fa fa-times me-2"></i> Viaje Cancelado
+                            </div>
+                        </t>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <t t-if="trip.estado == 'draft'">
+                        <form method="POST" t-att-action="'/my/trips/%s/start' % trip.id">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <button type="submit" class="btn btn-primary btn-lg w-100 mb-2" style="background:#2176c1; border-color:#2176c1;">
+                                <i class="fa fa-play me-2"></i> Iniciar Viaje
+                            </button>
+                        </form>
+                    </t>
+                    <t t-if="trip.estado == 'en_curso'">
+                        <form method="POST" t-att-action="'/my/trips/%s/end' % trip.id" class="mb-2">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <button type="submit" class="btn btn-primary btn-lg w-100" style="background:#2176c1; border-color:#2176c1;">
+                                <i class="fa fa-stop me-2"></i> Terminar Viaje
+                            </button>
+                        </form>
+                        <form method="POST" t-att-action="'/my/trips/%s/cancel' % trip.id">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                            <button type="submit" class="btn btn-danger btn-lg w-100">
+                                <i class="fa fa-times me-2"></i> Cancelar Viaje
+                            </button>
+                        </form>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

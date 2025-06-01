@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <template id="portal_my_trips" name="My Trips">
+  <template id="portal_my_trips" name="Mis Viajes">
     <t t-call="portal.portal_layout">
       <t t-set="title">Mis Viajes</t>
-
-      <div class="container mt-5 mb-5">
-
-        <!-- Encabezado con ícono y título -->
+      <div class="container py-2" style="background:#fff;">
+        <!-- Encabezado -->
         <div class="text-center mb-4">
           <div class="mb-3">
-            <i class="fa fa-car fa-3x text-primary"></i>
+            <i class="fa fa-car fa-3x" style="color:#2176c1;"></i>
           </div>
-          <h2>Mi Taxi</h2>
-          <p class="text-muted">Gestiona tus viajes fácilmente</p>
+          <h2 class="fw-bold" style="color:#2176c1;">FlotaPro</h2>
+          <p class="text-muted mb-0">Gestiona tus viajes fácilmente</p>
         </div>
 
-        <!-- Botón de nuevo viaje -->
-        <div class="text-center mb-5">
-          <div class="alert alert-success">
-            <h5 class="mb-3">¡Bienvenido!</h5>
-            <p class="mb-3">Toca el botón para crear un nuevo viaje</p>
-            <a href="/my/trips/new" class="btn btn-success btn-lg">
+        <!-- Bloque de bienvenida y botón -->
+        <div class="mx-auto mb-5" style="max-width: 600px;">
+          <div class="bg-white rounded shadow-sm p-4 text-center">
+            <h5 class="mb-3 fw-bold">¡Bienvenido!</h5>
+            <p class="mb-3 text-muted">Toca el botón para crear un nuevo viaje</p>
+            <a href="/my/trips/new" class="btn btn-success btn-lg w-100" style="background:#28a745; border-color:#28a745;">
               <i class="fa fa-plus-circle me-2"></i>Nuevo Viaje
             </a>
           </div>
         </div>
 
         <!-- Historial de viajes -->
-        <div class="mb-4">
-          <h4 class="mb-3">
-            <i class="fa fa-clock me-2"></i>Historial de Viajes</h4>
+        <div class="mx-auto" style="max-width: 700px;">
+          <div class="bg-white rounded shadow-sm p-4">
+            <h4 class="mb-1" style="color:#2176c1;">
+              <i class="fa fa-clock me-2"></i>Historial de Viajes
+            </h4>
+            <p class="text-muted mb-4" style="font-size: 0.95em;">Tus últimos viajes realizados</p>
 
-          <t t-if="trips">
-            <t t-foreach="trips" t-as="trip">
-              <div class="card shadow-sm mb-3">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="card-title mb-0">
+            <t t-if="trips">
+              <t t-foreach="trips" t-as="trip">
+                <div class="d-flex align-items-center justify-content-between border rounded mb-3 px-3 py-3" style="background:#f9f9f9;">
+                  <div>
+                    <div class="fw-bold" style="color:#2176c1;">
                       <i class="fa fa-user me-2"></i>
-                      <t t-esc="trip.partner_id.name or 'Pasajero desconocido'" />
-                    </h5>
-                    <small class="text-muted">
-                      <t t-esc="trip.create_date.strftime('%d/%m/%Y')" />
-                    </small>
-                  </div>
-
-                  <ul class="list-unstyled mb-2">
-                    <li>
-                      <i class="fa fa-users me-2"></i>
-                      <t t-esc="trip.passenger_count or 1" />
+                      <t t-esc="trip.pasajero_principal or trip.chofer_id.name or 'Pasajero desconocido'" />
+                    </div>
+                    <div class="text-muted" style="font-size:0.95em;">
+                      <i class="fa fa-users me-1"></i>
+                      <t t-esc="trip.pasajeros or 1"/>
  pasajero(s)
-                    </li>
-                    <li>
-                      <i class="fa fa-credit-card me-2"></i>
-                      <t t-esc="trip.payment_method or '---'" />
-                    </li>
-                    <li>
-                      <i class="fa fa-comment me-2"></i>
-                      <t t-esc="trip.comment or 'Sin comentarios'" />
-                    </li>
-                  </ul>
-
-                  <div class="d-flex justify-content-between align-items-center">
-                    <span class="badge 
-                      text-uppercase 
-                      px-3 py-1 
-                      fw-bold 
-                      badge-{{ 'success' if trip.estado == 'finalizado' else 'danger' if trip.estado == 'cancelado' else 'secondary' }}">
-                      <t t-esc="dict(trip.fields_get()['estado']['selection'])[trip.estado]" />
-                    </span>
-
-                    <a t-attf-href="/my/trips/{{ trip.id }}" class="btn btn-sm btn-outline-primary">
+                    </div>
+                    <div class="text-muted" style="font-size:0.95em;">
+                      <i class="fa fa-credit-card me-1"></i>
+                      <t t-esc="trip.forma_pago or '---'" />
+                    </div>
+                    <div class="text-muted" style="font-size:0.95em;">
+                      <i class="fa fa-comment me-1"></i>
+                      <t t-esc="trip.comentarios or 'Sin comentarios'" />
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    <div>
+                      <span t-if="trip.estado == 'finalizado'" class="badge bg-success rounded-pill px-3 py-2">
+                        <i class="fa fa-check-circle me-1"></i>Completado
+                      </span>
+                      <span t-if="trip.estado == 'cancelado'" class="badge bg-danger rounded-pill px-3 py-2">
+                        <i class="fa fa-times-circle me-1"></i>Cancelado
+                      </span>
+                      <span t-if="trip.estado not in ['finalizado','cancelado']" class="badge rounded-pill px-3 py-2" style="background:#e3e8f0; color:#2176c1; font-weight:600;">
+                        <i class="fa fa-clock me-1"></i>
+                        <t t-esc="dict(trip.fields_get()['estado']['selection'])[trip.estado]" />
+                      </span>
+                    </div>
+                    <div class="mt-2 text-muted" style="font-size:0.95em;">
+                      <i class="fa fa-calendar me-1"></i>
+                      <t t-esc="trip.create_date.strftime('%d/%m/%Y')" />
+                    </div>
+                    <a t-attf-href="/my/trips/{{ trip.id }}" class="btn btn-outline-primary btn-sm mt-2 w-100">
                       Ver detalles
                     </a>
                   </div>
                 </div>
+              </t>
+            </t>
+            <t t-if="not trips">
+              <div class="alert alert-info text-center mb-0">
+                Aún no has registrado ningún viaje.
               </div>
             </t>
-          </t>
-
-          <t t-if="not trips">
-            <div class="alert alert-info text-center">
-              Aún no has registrado ningún viaje.
-            </div>
-          </t>
+          </div>
         </div>
       </div>
     </t>

@@ -3,102 +3,95 @@
     <template id="portal_my_trip_new" name="Nuevo Viaje">
         <t t-call="portal.portal_layout">
             <t t-set="title">Nuevo Viaje</t>
-
             <div class="container my-5">
-                <div class="mx-auto" style="max-width: 550px;">
-                    <h4 class="mb-4">
-                        <i class="fa fa-arrow-left me-2"></i>Nuevo Viaje</h4>
-
+                <div class="mx-auto" style="max-width: 500px;">
+                    <h4 class="mb-4 fw-bold" style="color:#2176c1;">
+                        <i class="fa fa-arrow-left me-2"></i>Nuevo Viaje
+                    </h4>
                     <t t-if="error">
                         <div class="alert alert-danger" role="alert">
                             <t t-esc="error"/>
                         </div>
                     </t>
-
                     <form method="post" enctype="multipart/form-data">
-                        <div class="card shadow-sm p-4">
-
-                            <h5 class="mb-3">
-                                <i class="fa fa-info-circle me-2 text-primary"></i>Información del Viaje</h5>
-
-                            <div class="mb-3">
-                                <label class="form-label">Número de Pasajeros</label>
-                                <select name="passenger_count" class="form-select">
-                                    <option value="">Selecciona cantidad</option>
-                                    <t t-foreach="range(1, 10)" t-as="i">
-                                        <option t-att-value="i">
-                                            <t t-esc="i"/>
-                                        </option>
-                                    </t>
-                                </select>
+                        <div class="card shadow-sm p-4 border-0">
+                            <h5 class="mb-3 fw-bold" style="color:#2176c1;">
+                                <i class="fa fa-info-circle me-2 text-primary"></i>Información del Viaje
+                            </h5>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-users me-1 text-primary"></i>Número de Pasajeros</label>
+                                    <input type="number" name="passenger_count" class="form-control" min="1" max="50" step="1" pattern="\d+" required="1" placeholder="Cantidad de pasajeros"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-dollar-sign me-1 text-primary"></i>Costo</label>
+                                    <input type="number" step="0.01" name="cost" class="form-control"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-coins me-1 text-primary"></i>Divisa</label>
+                                    <select name="currency" class="form-select">
+                                        <option value="MXN">MXN</option>
+                                        <option value="USD">USD</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-credit-card me-1 text-primary"></i>Método de Pago</label>
+                                    <select name="payment_method" class="form-select">
+                                        <option value="">Selecciona método</option>
+                                        <option value="efectivo">Efectivo</option>
+                                        <option value="tarjeta">Tarjeta</option>
+                                        <option value="transferencia">Transferencia</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-map-marker-alt me-1 text-primary"></i>Origen</label>
+                                    <input type="text" name="origin" class="form-control"/>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">
+                                        <i class="fa fa-map-pin me-1 text-primary"></i>Destino</label>
+                                    <input type="text" name="destination" class="form-control"/>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fa fa-user me-1 text-primary"></i>Nombre del Pasajero Principal</label>
+                                    <input type="text" name="main_passenger" class="form-control"/>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fa fa-comment me-1 text-primary"></i>Observaciones</label>
+                                    <textarea name="comment" class="form-control" rows="2"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fa fa-paperclip me-1 text-primary"></i>Multimedia (Opcional)</label>
+                                    <input type="file" name="media" class="form-control" accept="image/*,video/*,application/pdf,application/xml,.xml,application/vnd.oasis.opendocument.text,.pdf,.facture"/>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">
+                                        <i class="fa fa-id-card me-1 text-primary"></i>Tarjeta Virtual</label>
+                                    <select name="card_id" class="form-select" required="1">
+                                        <t t-foreach="cards" t-as="card">
+                                            <option t-att-value="card.id">
+                                                <t t-esc="card.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Método de Pago</label>
-                                <select name="payment_method" class="form-select">
-                                    <option value="">Selecciona método</option>
-                                    <option value="efectivo">Efectivo</option>
-                                    <option value="tarjeta">Tarjeta</option>
-                                    <option value="transferencia">Transferencia</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Costo</label>
-                                <input type="number" step="0.01" name="cost" class="form-control"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Divisa</label>
-                                <select name="currency" class="form-select">
-                                    <option value="MXN">MXN</option>
-                                    <option value="USD">USD</option>
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Origen</label>
-                                <input type="text" name="origin" class="form-control"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Destino</label>
-                                <input type="text" name="destination" class="form-control"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Nombre del Pasajero Principal</label>
-                                <input type="text" name="main_passenger" class="form-control"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Observaciones</label>
-                                <textarea name="comment" class="form-control" rows="3"></textarea>
-                            </div>
-
-                            <div class="mb-4">
-                                <label class="form-label">Multimedia (Opcional)</label>
-                                <input type="file" name="media" class="form-control" accept="image/*,video/*,application/pdf,application/xml,.xml,application/vnd.oasis.opendocument.text,.pdf,.facture"/>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Tarjeta Virtual</label>
-                                <select name="card_id" class="form-select" required="1">
-                                    <t t-foreach="cards" t-as="card">
-                                        <option t-att-value="card.id">
-                                            <t t-esc="card.name"/>
-                                        </option>
-                                    </t>
-                                </select>
-                            </div>
-
-
-                            <button type="submit" class="btn btn-primary w-100">Crear Viaje</button>
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <button type="submit" class="btn btn-primary w-100 mt-4" style="background:#2176c1; border-color:#2176c1;">
+                                <i class="fa fa-check me-2"></i>Crear Viaje
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </t>
     </template>
-
 </odoo>

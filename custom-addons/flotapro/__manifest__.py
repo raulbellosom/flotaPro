@@ -24,7 +24,6 @@
     'data': [
         'data/groups.xml',
         'security/ir.model.access.csv',
-        'security/portal_driver_rule.xml',
         'security/portal_driver_employee_rule.xml',
         'data/sequence.xml',
         'data/recharge_sequence.xml',
@@ -36,5 +35,6 @@
         'views/portal_templates.xml',
         'views/portal_my_trips.xml',
         'views/portal_my_trip_new.xml',
+        'views/portal_trip_detail.xml',
     ],
 }

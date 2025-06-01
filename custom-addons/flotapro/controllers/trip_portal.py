@@ -14,7 +14,7 @@ class FlotaProPortal(CustomerPortal):
 
         trips = request.env['flotapro.trip'].sudo().search([
             ('chofer_id', '=', empleado.id)
-        ], order='create_date desc')
+        ], order='update_date desc', limit=10)
 
         return request.render('flotapro.portal_my_trips', {
             'trips': trips,
@@ -55,7 +55,7 @@ class FlotaProPortal(CustomerPortal):
                     'destino': kw.get('destination'),
                     'pasajero_principal': kw.get('main_passenger'),
                     'comentarios': kw.get('comment'),
-                    'partner_id': user.partner_id.id,
+                    # 'partner_id': user.partner_id.id,
                 })
 
                 return request.redirect('/my/trips/%s' % trip.id)
@@ -70,3 +70,25 @@ class FlotaProPortal(CustomerPortal):
         return request.render('flotapro.portal_my_trip_new', {
             'cards': tarjetas
         })
+    
+    @http.route('/my/trips/<int:trip_id>/start', type='http', auth='user', methods=['POST'], csrf=True)
+    def portal_trip_start(self, trip_id, **kw):
+        trip = request.env['flotapro.trip'].sudo().browse(trip_id)
+        try:
+            trip.action_iniciar()
+        except Exception as e:
+            _logger.error("Error al iniciar viaje %s: %s", trip_id, e)
+        return request.redirect(f'/my/trips/{trip_id}')
+
+    @http.route('/my/trips/<int:trip_id>/end', type='http', auth='user', methods=['POST'], csrf=True)
+    def portal_trip_end(self, trip_id, **kw):
+        trip = request.env['flotapro.trip'].sudo().browse(trip_id)
+        trip.action_finalizar()
+        return request.redirect(f'/my/trips/{trip_id}')
+
+    @http.route('/my/trips/<int:trip_id>/cancel', type='http', auth='user', methods=['POST'], csrf=True)
+    def portal_trip_cancel(self, trip_id, **kw):
+        trip = request.env['flotapro.trip'].sudo().browse(trip_id)
+        trip.action_cancelar()
+        return request.redirect(f'/my/trips/{trip_id}')
+
