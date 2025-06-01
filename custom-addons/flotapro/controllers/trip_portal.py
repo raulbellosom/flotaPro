@@ -14,7 +14,7 @@ class FlotaProPortal(CustomerPortal):
 
         trips = request.env['flotapro.trip'].sudo().search([
             ('chofer_id', '=', empleado.id)
-        ], order='update_date desc', limit=10)
+        ], order='create_date desc', limit=10)
 
         return request.render('flotapro.portal_my_trips', {
             'trips': trips,
