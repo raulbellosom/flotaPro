@@ -2,6 +2,10 @@
 <odoo>
   <record id="group_portal_driver" model="res.groups">
     <field name="name">Chofer (Portal Web)</field>
-    <field name="category_id" ref="base.module_category_user_type"/>
+    <!-- NO usar esta línea: -->
+    <!-- <field name="category_id" ref="base.module_category_user_type"/> -->
+
+    <!-- Heredar funcionalidades necesarias sin ser tipo de usuario -->
+    <field name="implied_ids" eval="[(4, ref('base.group_portal'))]"/>
   </record>
 </odoo>

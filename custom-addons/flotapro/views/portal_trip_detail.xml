@@ -59,11 +59,11 @@
                                 <i class="fa fa-clock me-2"></i> Viaje en Progreso
                             </div>
                         </t>
-                        <t t-if="trip.estado == 'draft'">
+                        <!-- <t t-if="trip.estado == 'draft'">
                             <div class="btn btn-light btn-lg w-100 mb-3" style="color:#2176c1; border: 2px solid #2176c1;">
                                 <i class="fa fa-play me-2"></i> Viaje Pendiente
                             </div>
-                        </t>
+                        </t> -->
                         <t t-if="trip.estado == 'finalizado'">
                             <div class="btn btn-success btn-lg w-100 mb-3 cursor-default" style="border: 2px solid #28a745;">
                                 <i class="fa fa-check me-2"></i> Viaje Finalizado
